@@ -5,6 +5,8 @@ import morgan from "morgan";
 import globalErr from "./middlewares/globalErr.js";
 import loggingMiddleware from "./middlewares/loggingMiddleware.js";
 import zipRoutes from './routes/zipRoutes.js';
+import inspectionRoutes from './routes/inspectionsRoute.js';
+import companiesRoutes from './routes/companiesRoute.js';
 import db from './db/conn.js';
 
 // Environment Set up
@@ -19,7 +21,8 @@ app.use(loggingMiddleware);
 
 // Routes
 app.use('/api/test', zipRoutes);
-
+app.use('/api/inspections', inspectionRoutes);
+app.use('/api/companies', companiesRoutes);
 
 // Global Error Handling
 app.use(globalErr);
