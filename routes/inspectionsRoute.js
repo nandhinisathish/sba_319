@@ -16,6 +16,16 @@ router.route('/:id').get(inspectionsController.getById);
 // @route: GET /api/inspections/fail
 // @desc: Get the inspections by result as 'fail'
 // @access: Public
-router.route('/fail').get(inspectionsController.getByResultAsFail);
+router.route('/:id/fail').get(inspectionsController.getByResultAsFail);
+
+// @route: PATCH /api/inspections/:id/
+// @desc: Update the inspections by Id
+// @access: Public
+router.route('/:id').patch(inspectionsController.updateById);
+
+// @route: DELETE /api/inspections/:id/
+// @desc: Get the inspections by result as 'fail'
+// @access: Public
+router.route('/:id').delete(inspectionsController.deleteById);
 
 export default router;

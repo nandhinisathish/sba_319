@@ -1,6 +1,19 @@
 import db from '../db/conn.js';
 import { ObjectId } from 'mongodb';
 
+let getByCategoryAsMusic = async(req, res) =>{
+    
+    // Choose the collection
+    let companies = await db.collection('companies');
+
+    // Perform an action
+    let result = await companies.find({category_code: "music"}).limit(2).toArray();
+
+    // Return the result
+    if(result.length == 0) res.status(404).json({msg: "Company details not found"})
+        else res.json(result);
+    
+}
 
 let getAll = async(req, res) =>{
     
@@ -30,18 +43,6 @@ let getById = async(req, res) =>{
 
 }
 
-let getByCategoryAsMusic = async(req, res) =>{
-    
-    // Choose the collection
-    let companies = await db.collection('companies');
 
-    // Perform an action
-    let result = await companies.find({category_code: "music"}).limit(2).toArray();
 
-    // Return the result
-    if(result.length == 0) res.status(404).json({msg: "Company details not found"})
-        else res.json(result);
-    
-}
-
-export default { getAll, getByCategoryAsMusic, getById};
+export default { getAll, getById, getByCategoryAsMusic};
