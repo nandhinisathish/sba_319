@@ -41,7 +41,7 @@ let getByResultAsFail = async(req, res) =>{
     let inspections = await db.collection('inspections');
 
     // Perform an action
-    let result = await inspections.find({result: "fail"}).limit(2).toArray();
+    let result = await inspections.find({sector: "Home Improvement Contractor - 100"}).limit(2).toArray();
 
     // Return the result
     if(result.length == 0) res.status(404).json({Msg: "Companies not found"})
@@ -83,4 +83,23 @@ let deleteById =  async(req, res)=>{
 
 };
 
-export default { getAll, getById, getByResultAsFail, updateById, deleteById};
+let resAggregate = async (req, res)=> {
+
+   // Choose the collection
+    let inspections = await db.collection('inspections');
+
+       // Perform an action
+    let result = await inspections.aggregate([
+        {
+            $project: {
+                result:"No Violation Issued"
+            }
+        }
+    ]).limit(3).toArray(); 
+
+     // Return the result
+    res.json(result);
+
+};
+
+export default { getAll, getById, getByResultAsFail, updateById, deleteById, resAggregate};
